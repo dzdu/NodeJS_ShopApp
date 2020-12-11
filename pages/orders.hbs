@@ -1,0 +1,33 @@
+<h1>My Orders</h1>
+
+
+<div class="main">
+{{#if orders.length}}
+  {{#each orders}}
+  <div class="block">
+      <div class="card ">
+      <div class="card-content order-card">
+            <span class="card-title">
+                Order <small>{{_id}}</small>
+            </span>
+            <p class="date">{{date}}</p>
+            <b><em>{{user.userId.name}} </em></b>
+            <p>({{user.userId.email}})</p>
+            <ol>
+              {{#each courses}}
+                <li>
+                  <img src="{{course.image}}" alt="{{course.title}}" class="order-image"> {{course.title}} x <b>{{count}}</b>
+                </li>
+              {{/each}}
+            </ol>
+            <hr>
+            <p>Price <span class="price">{{price}}</span></p>
+          </div>
+      </div>
+      </div>
+  {{/each}}
+  </div>
+{{else}}
+  <p>No orders yet</p>
+{{/if}}
+</div>

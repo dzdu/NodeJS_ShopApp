@@ -1,0 +1,39 @@
+<h1>Courses</h1>
+<div class="main">
+{{#if courses.length}}
+{{#each courses}}
+  <div class="block">
+      <div class="card">
+        <div class="card-image">
+        <img src="{{image}}" alt="{{title}}">
+      </div>
+      <div class="card-content">
+        <span class="card-title">{{title}}</span>
+        <p class="price">{{price}}</p>
+      </div>
+      <div class="card-action">
+        <div class="links">
+        <a href="/courses/{{id}}" target="_blank">Open course</a>
+        </div>
+        <form action="/cart/add" method="POST">
+        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-primary btn-buy">Buy <b>{{title}}</b> course</button>
+        </form>
+      {{!-- {{#if @root.isAuth}}
+              <a href="/courses/{{id}}/edit?allow=true" >Edit Course</a>
+        </div>
+        <form action="/cart/add" method="POST">
+        <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-primary btn-buy">Buy <b>{{title}}</b> course</button>
+        </form>
+      {{/if}} --}}
+      </div>
+      </div>
+</div>
+{{/each}}
+</div>
+{{else}}
+<p>No courses yet.</p>
+{{/if}}
