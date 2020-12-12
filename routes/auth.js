@@ -8,6 +8,8 @@ const keys = require('../keys');
 const regEmail = require('../email/registration');
 const resetEmail = require('../email/reset');
 const crypto = require('crypto');
+const { validationResult } = require('express-validator');
+const { registerValidators } = require('../utils/validators');
 
 //TODO make pass confirm
 
@@ -66,10 +68,17 @@ router.post('/login', async (req, res) => {
   }
 });
 //! hash password
-router.post('/register', async (req, res) => {
+router.post('/register', registerValidators, async (req, res) => {
   try {
-    const { email, password, repeat, name } = req.body;
+    const { email, password, confirm, name } = req.body;
     const canditate = await User.findOne({ email });
+
+    const errors = validationResult(req); //* validation
+    if (!errors.isEmpty()) {
+      req.flash('registerError', errors.array()[0].msg);
+      return res.status(422).redirect('/auth/login#register');
+    }
+
     if (canditate) {
       req.flash('registerError', 'User with this email already exists');
       res.redirect('/auth/login#register');

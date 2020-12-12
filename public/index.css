@@ -116,3 +116,7 @@ ol li {
   justify-content: space-between;
   align-items: center;
 }
+
+.auth {
+  padding: 1rem;
+}
