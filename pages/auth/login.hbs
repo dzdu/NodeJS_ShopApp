@@ -41,9 +41,9 @@
       {{/if}}
       
       <h3>Register</h3>
-        <form action="/auth/register" method="POST" novalidate>
+        <form action="/auth/register" method="POST">
               <div class="input-field">
-                <input id="remail" type="email" class="validate" required name="email">
+                <input id="remail" type="email" class="validate" required name="email" >
                 <label for="remail">Your email address</label>
               <span class="helper-text" data-error="Wrong email" data-success=""></span>
               </div>
@@ -53,9 +53,9 @@
                 <span class="helper-text" data-error="Add name" data-success=""></span>
               </div>
               <div class="input-field">
-                <input id="rpassword" type="password" class="validate" required name="password"  minlength="8">
+                <input id="rpassword" type="password" class="validate" required name="password"  minlength="6">
                 <label for="rpassword">Password</label>
-              <span class="helper-text" data-error="Add password, min length 8 characters" data-success=""></span>
+              <span class="helper-text" data-error="Password must include at least 6 characters or numbers" data-success=""></span>
               </div>             
                <div class="input-field">
                 <input id="confirm" type="password" class="validate" required name="confirm">

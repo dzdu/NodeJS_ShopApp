@@ -120,3 +120,8 @@ ol li {
 .auth {
   padding: 1rem;
 }
+
+.avatar {
+  max-width: 250px;
+  height: auto;
+}

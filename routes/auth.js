@@ -70,27 +70,19 @@ router.post('/login', async (req, res) => {
 //! hash password
 router.post('/register', registerValidators, async (req, res) => {
   try {
-    const { email, password, confirm, name } = req.body;
-    const canditate = await User.findOne({ email });
+    const { email, password, name } = req.body;
 
     const errors = validationResult(req); //* validation
     if (!errors.isEmpty()) {
       req.flash('registerError', errors.array()[0].msg);
       return res.status(422).redirect('/auth/login#register');
     }
-
-    if (canditate) {
-      req.flash('registerError', 'User with this email already exists');
-      res.redirect('/auth/login#register');
-      req.session.save();
-    } else {
-      const hashPassword = await bcrypt.hash(password, 10);
-      //Creating new user
-      const user = new User({ email, name, password: hashPassword, cart: { items: [] } });
-      await user.save();
-      res.redirect('/auth/login#login');
-      await transport.sendMail(regEmail(email));
-    }
+    const hashPassword = await bcrypt.hash(password, 10);
+    //Creating new user
+    const user = new User({ email, name, password: hashPassword, cart: { items: [] } });
+    await user.save();
+    res.redirect('/auth/login#login');
+    await transport.sendMail(regEmail(email));
   } catch (error) {
     console.log(error);
   }
