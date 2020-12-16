@@ -8,6 +8,8 @@ const MongoStore = require('connect-mongodb-session')(session);
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const csrf = require('csurf'); //* защищает соеденение
 const flash = require('connect-flash'); //** Alerts
+const helmet = require('helmet');
+const compression = require('compression');
 //* Routes
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add');
@@ -51,9 +53,15 @@ app.use(
     store,
   }),
 );
+app.use(compression());
 app.use(uploadMiddleware.single('avatar'));
 app.use(csrf());
 app.use(flash());
+app.use(
+  helmet({
+    contentSecurityPolicy: false, //! Security
+  }),
+);
 app.use(varMiddleware);
 app.use(userMiddleware);
 
